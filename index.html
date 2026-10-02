@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mori cafe | 森のそばの小さなカフェ</title>
+<meta name="description" content="mori cafe は、街の木立のそばにある小さなカフェです。">
+<style>
+  :root {
+    --green: #4a6b4f;
+    --green-dark: #34503a;
+    --cream: #faf6ee;
+    --beige: #efe6d4;
+    --brown: #6b4f3a;
+    --text: #3a332c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+    color: var(--text);
+    background: var(--cream);
+    line-height: 1.8;
+  }
+  img { max-width: 100%; }
+  .container { width: min(1000px, 100% - 40px); margin: 0 auto; }
+  section { padding: 72px 0; }
+  h2 {
+    text-align: center;
+    font-size: 1.6rem;
+    color: var(--green-dark);
+    letter-spacing: .15em;
+    margin-bottom: 40px;
+  }
+  h2::after {
+    content: "";
+    display: block;
+    width: 40px; height: 3px;
+    background: var(--green);
+    margin: 12px auto 0;
+  }
+
+  /* ヘッダー */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(250, 246, 238, .95);
+    border-bottom: 1px solid var(--beige);
+  }
+  .header-inner {
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: space-between;
+    gap: 8px; padding: 12px 0;
+  }
+  .logo { font-size: 1.4rem; font-weight: bold; color: var(--green-dark); letter-spacing: .1em; text-decoration: none; }
+  nav ul { display: flex; gap: 20px; list-style: none; }
+  nav a { color: var(--text); text-decoration: none; font-size: .9rem; }
+  nav a:hover { color: var(--green); }
+
+  /* メインビジュアル */
+  .hero {
+    background: linear-gradient(135deg, #8fae8b, #4a6b4f);
+    color: #fff;
+    text-align: center;
+    padding: 120px 20px;
+  }
+  .hero h1 { font-size: clamp(1.8rem, 6vw, 3rem); letter-spacing: .2em; margin-bottom: 16px; }
+  .hero p { font-size: clamp(.95rem, 3vw, 1.15rem); margin-bottom: 28px; }
+  .hero small { display: block; margin-top: 24px; opacity: .7; font-size: .8rem; }
+
+  /* ボタン */
+  .btn {
+    display: inline-block;
+    background: var(--brown);
+    color: #fff;
+    padding: 14px 40px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background .2s;
+  }
+  .btn:hover { background: #523c2b; }
+  .hero .btn { background: #fff; color: var(--green-dark); }
+  .hero .btn:hover { background: var(--beige); }
+
+  /* コンセプト */
+  .concept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+  .photo {
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,.9);
+    font-size: .85rem;
+    border-radius: 12px;
+    text-align: center;
+  }
+  .photo.concept { aspect-ratio: 4 / 3; background: #c9a77c; }
+  .concept p + p { margin-top: 1em; }
+
+  /* メニュー */
+  .menu { background: var(--beige); }
+  .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+  .card .photo { aspect-ratio: 4 / 3; border-radius: 0; }
+  .card:nth-child(1) .photo { background: #b5784a; }
+  .card:nth-child(2) .photo { background: #d9a441; }
+  .card:nth-child(3) .photo { background: #7d9b76; }
+  .card-body { padding: 20px; }
+  .card h3 { color: var(--green-dark); font-size: 1.1rem; }
+  .price { color: var(--brown); font-weight: bold; margin: 4px 0 8px; }
+  .card p { font-size: .9rem; }
+
+  /* 店舗情報 */
+  dl.info {
+    max-width: 640px; margin: 0 auto;
+    background: #fff; border-radius: 12px;
+    padding: 12px 28px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  }
+  dl.info > div { display: flex; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--beige); }
+  dl.info > div:last-child { border-bottom: none; }
+  dl.info dt { width: 6em; flex-shrink: 0; font-weight: bold; color: var(--green-dark); }
+  .note { text-align: center; font-size: .85rem; margin-top: 16px; opacity: .8; }
+
+  /* お問い合わせ */
+  .contact { background: var(--green); color: #fff; text-align: center; }
+  .contact h2 { color: #fff; }
+  .contact h2::after { background: #fff; }
+  .contact p { margin-bottom: 28px; }
+  .contact .btn { background: #fff; color: var(--green-dark); }
+  .contact .btn:hover { background: var(--beige); }
+
+  /* フッター */
+  footer { background: var(--green-dark); color: #dfe8dd; text-align: center; padding: 28px 20px; font-size: .85rem; }
+
+  /* スマホ */
+  @media (max-width: 720px) {
+    section { padding: 56px 0; }
+    .header-inner { justify-content: center; }
+    nav ul { gap: 14px; }
+    .hero { padding: 80px 20px; }
+    .concept-grid, .menu-grid { grid-template-columns: 1fr; }
+    dl.info { padding: 8px 18px; }
+    dl.info > div { flex-direction: column; gap: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <a class="logo" href="#top">mori cafe</a>
+    <nav>
+      <ul>
+        <li><a href="#concept">コンセプト</a></li>
+        <li><a href="#menu">メニュー</a></li>
+        <li><a href="#info">店舗情報</a></li>
+        <li><a href="#contact">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <h1>森のように、ほっとする場所。</h1>
+    <p>コーヒーと焼き菓子と、ゆっくり流れる時間をどうぞ。</p>
+    <a class="btn" href="#menu">メニューを見る</a>
+    <small>※ メインビジュアルの写真は準備中です(色の背景で代用)</small>
+  </div>
+
+  <section id="concept">
+    <div class="container">
+      <h2>CONCEPT</h2>
+      <div class="concept-grid">
+        <div class="photo concept">店内の写真が入ります</div>
+        <div>
+          <p>mori cafe は、街の木立のそばにある小さなカフェです。</p>
+          <p>忙しい毎日の中で、ふっと深呼吸できる場所をつくりたい。そんな思いから、木のぬくもりと緑に囲まれた空間で、丁寧に淹れたコーヒーと手づくりのお菓子をご用意しています。</p>
+          <p>お仕事の合間にも、ひとりの読書にも、友人とのおしゃべりにも。どうぞ気軽に立ち寄ってください。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu" class="menu">
+    <div class="container">
+      <h2>RECOMMEND</h2>
+      <div class="menu-grid">
+        <article class="card">
+          <div class="photo">コーヒーの写真</div>
+          <div class="card-body">
+            <h3>森のブレンドコーヒー</h3>
+            <p class="price">¥550</p>
+            <p>深煎りと中煎りをあわせた、やさしい苦みと甘みの当店オリジナル。</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="photo">スイーツの写真</div>
+          <div class="card-body">
+            <h3>はちみつ焼きチーズケーキ</h3>
+            <p class="price">¥600</p>
+            <p>しっとり濃厚。国産はちみつのやさしい甘さが広がります。</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="photo">ランチの写真</div>
+          <div class="card-body">
+            <h3>季節野菜のプレートランチ</h3>
+            <p class="price">¥1,200</p>
+            <p>旬の野菜をたっぷり使った、からだにやさしい日替わりプレート。</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="info">
+    <div class="container">
+      <h2>INFORMATION</h2>
+      <dl class="info">
+        <div><dt>住所</dt><dd>〒000-0000<br>○○県○○市みどり町1-2-3</dd></div>
+        <div><dt>営業時間</dt><dd>9:00〜18:00(ラストオーダー 17:30)</dd></div>
+        <div><dt>定休日</dt><dd>毎週水曜日</dd></div>
+        <div><dt>電話</dt><dd><a href="tel:0000000000" style="color:inherit;">00-0000-0000</a></dd></div>
+      </dl>
+      <p class="note">※ 架空のお店のため、住所・電話番号はダミーです。</p>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2>CONTACT</h2>
+      <p>ご予約・ご質問・貸切のご相談など、お気軽にご連絡ください。</p>
+      <a class="btn" href="mailto:info@example.com">お問い合わせはこちら</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2026 mori cafe. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
